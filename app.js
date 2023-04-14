@@ -36,6 +36,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //----------------- lecture_04 ----------------------------------//
 
+  function verificarPareja() {
+    var cards = document.querySelectorAll("img");
+    const opcionUnoId = cartasEscogidasId[0];
+    const opcionDosId = cartasEscogidasId[1];
+
+    if (opcionUnoId === opcionDosId) {
+      cards[opcionUnoId].setAttribute("src", "images/reverso.png");
+      cards[opcionDosId].setAttribute("src", "images/reverso.png");
+      alert("¡Diste click a la misma imagen!");
+    } else if (cartasEscogidas[0] === cartasEscogidas[1]) {
+      alert("¡Correcto!");
+      cards[opcionUnoId].setAttribute("src", "images/blank.png");
+      cards[opcionDosId].setAttribute("src", "images/blank.png");
+      cards[opcionUnoId].removeEventListener("Click", voltearCarta);
+      cards[opcionDosId].removeEventListener("Click", voltearCarta);
+      cartasGanadas.push(cartasEscogidas);
+    } else {
+      cards[opcionUnoId].setAttribute("src", "images/reverso.png");
+      cards[opcionDosId].setAttribute("src", "images/reverso.png");
+      alert("¡Intenta de nuevo!");
+    }
+    cartasEscogidas = [];
+    cartasEscogidasId = [];
+
+    resultado.textContent = cartasGanadas.length;
+
+    if (cartasGanadas.length === cardAdj.length / 2) {
+      resultado.textContent = "¡Felicidades, encontraste todos los pares!";
+    }
+  }
+
+  //----------------- lecture_05 ----------------------------------//
+
   function voltearCarta() {
     var cardId = this.getAttribute("data-id");
     cartasEscogidas.push(cardAdj[cardId].name);
